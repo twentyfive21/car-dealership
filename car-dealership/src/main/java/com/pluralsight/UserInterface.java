@@ -240,7 +240,25 @@ public class UserInterface {
     }
 
     public void processGetByVehicleTypeRequest(){
+        System.out.println("**** You have chosen to search vehicle by type(car,suv,truck,van,ect) ****");
+        System.out.print("Selection: ");
+        String carType = scanner.nextLine().trim();
 
+        boolean match = false;
+        ArrayList<Vehicle> matchingType = new ArrayList<>();
+        for (Vehicle vehicle : dealership.getAllVehicles()){
+            if(vehicle.getVehicleType().equalsIgnoreCase(carType)){
+                matchingType.add(vehicle);
+                match = true;
+            }
+        }
+        displayVehicles(matchingType);
+        // display message for match result
+        if(!match){
+            System.out.println("\n **** No matching cars found by type ****");
+        } else {
+            System.out.println("++++++++++ End of matching car type results ++++++++++");
+        }
     }
 
     public void processGetAllVehiclesRequest(){
