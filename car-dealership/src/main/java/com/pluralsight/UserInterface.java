@@ -200,7 +200,43 @@ public class UserInterface {
     }
 
     public void processGetByMileageRequest(){
-
+        try{
+            System.out.println("You have chosen to search by mileage");
+            System.out.print("Please provide the mileage: ");
+            System.out.print("Max : ");
+            double max = scanner.nextDouble();
+            System.out.print("Min : ");
+            double min = scanner.nextDouble();
+            scanner.nextLine();
+            // Create a new ArrayList to store vehicles that fall within the specified price range
+            ArrayList<Vehicle> mileageMatch = new ArrayList<>();
+            // boolean for matching result
+            boolean match = false;
+            // Iterate through all vehicles in the dealership to check if their prices fall within the specified range
+            for (Vehicle vehicle : dealership.getAllVehicles()) {
+                // Check if the price of the current vehicle is greater than or equal to the minimum price
+                // and less than or equal to the maximum price
+                if (vehicle.getOdometer() >= min && vehicle.getOdometer() <= max) {
+                    // If the vehicle's price falls within the range, add it to the 'inRange' ArrayList
+                    mileageMatch.add(vehicle);
+                    match = true;
+                }
+            }
+            // Display vehicles in the price range
+            displayVehicles(mileageMatch);
+            // display message for match result
+            if(!match){
+                System.out.println("\n **** No matching cars found in mileage range ****");
+            } else {
+                System.out.println("++++++++++ End of matching mileage results ++++++++++");
+            }
+        }catch (Exception e){
+            // clear buffer if try fails
+            scanner.nextLine();
+            System.out.println("!! Error please provide a valid mileage !!");
+            // re-run program
+            processGetByMileageRequest();
+        }
     }
 
     public void processGetByVehicleTypeRequest(){
