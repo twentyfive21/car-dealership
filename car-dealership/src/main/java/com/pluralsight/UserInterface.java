@@ -25,44 +25,43 @@ public class UserInterface {
 
     public void display(){
         init();
+        boolean running = true;
+
+        while (running) {
         displayChoices();
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine().trim();
-
-        switch (choice){
-            case "1" : processGetByPriceRequest();
-                break;
-            case "2" : processGetByMakeModelRequest();
-                break;
-            case "3" : processGetByYearRequest();
-                break;
-            case "4" : processGetByColorRequest();
-                break;
-            case "5" : processGetByMileageRequest();
-                break;
-            case "6" : processGetByVehicleTypeRequest();
-                break;
-            case "7" : processGetAllVehiclesRequest();
-                break;
-            case "8" : processAddVehicleRequest();
-                break;
-            case "9" : processRemoveVehicleRequest();
-                break;
-            case "0" : quit();
-                break;
-            default: System.out.println("\nError invalid choice! Please choose a valid option.");
-                    display();
+            switch (choice){
+                case "1" : processGetByPriceRequest();
                     break;
+                case "2" : processGetByMakeModelRequest();
+                    break;
+                case "3" : processGetByYearRequest();
+                    break;
+                case "4" : processGetByColorRequest();
+                    break;
+                case "5" : processGetByMileageRequest();
+                    break;
+                case "6" : processGetByVehicleTypeRequest();
+                    break;
+                case "7" : processGetAllVehiclesRequest();
+                    break;
+                case "8" : processAddVehicleRequest();
+                    break;
+                case "9" : processRemoveVehicleRequest();
+                    break;
+                case "0" :  System.out.println("\nYou have chosen to leave! Have a nice day and come again!");
+                            running = false;
+                    break;
+                default: System.out.println("\n**** Error invalid choice! Please choose a valid option. ****\n");
+                    break;
+            }
         }
 
     }
 
-    public void quit(){
-        System.out.println("\nYou have chosen to leave! Have a nice day and come again!");
-    }
-
     public void displayChoices(){
-        System.out.println("Welcome to the dealership! Please select one of the following.\n");
+        System.out.println("\n---- Welcome to the dealership! Please select one of the following. ----\n");
         System.out.println("(1) Find vehicles within a price range");
         System.out.println("(2) Find vehicles by make / model");
         System.out.println("(3) Find vehicles by year range");
@@ -78,27 +77,27 @@ public class UserInterface {
     }
 
     public void processGetByPriceRequest(){
-        display();
+
     }
 
     public void processGetByMakeModelRequest(){
-        display();
+
     }
 
     public void processGetByYearRequest(){
-        display();
+
     }
 
     public void processGetByColorRequest(){
-        display();
+
     }
 
     public void processGetByMileageRequest(){
-        display();
+
     }
 
     public void processGetByVehicleTypeRequest(){
-        display();
+
     }
 
     public void processGetAllVehiclesRequest(){
@@ -106,16 +105,16 @@ public class UserInterface {
         displayVehicles(dealership.getAllVehicles());
         System.out.println("~~~~~~~ End of all vehicles ~~~~~~~\n");
         System.out.println("    ");
-        display();
+
 
     }
 
     public void processAddVehicleRequest(){
-        display();
+
     }
 
     public void processRemoveVehicleRequest(){
-        display();
+
     }
 
 }
