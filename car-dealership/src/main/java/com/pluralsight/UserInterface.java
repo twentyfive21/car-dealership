@@ -179,7 +179,24 @@ public class UserInterface {
     }
 
     public void processGetByColorRequest(){
+        System.out.println("**** You have chosen to search by color! ****");
+        System.out.print("Please provide the color: ");
+        String color = scanner.nextLine();
 
+        boolean match = false;
+        ArrayList<Vehicle> matchingColor = new ArrayList<>();
+        for(Vehicle vehicle : dealership.getAllVehicles()){
+            if(vehicle.getColor().toLowerCase().equalsIgnoreCase(color)){
+                matchingColor.add(vehicle);
+                match = true;
+            }
+        }
+        displayVehicles(matchingColor);
+        if(!match){
+            System.out.println("\n**** No matching cars found with color provided ****");
+        } else {
+            System.out.println("++++++++++ End of matching color results ++++++++++");
+        }
     }
 
     public void processGetByMileageRequest(){
