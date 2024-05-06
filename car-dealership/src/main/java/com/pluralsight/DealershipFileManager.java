@@ -39,7 +39,7 @@ public class DealershipFileManager {
 
     // overwrite the inventory file with current dealership information
     public void saveDealership(Dealership dealership){
-     try{// create new buf write to write to file
+     try{// create new buf writer to write to file
          BufferedWriter bufWriter = new BufferedWriter(new FileWriter("inventory.csv"));
          // write first line of dealership object
          bufWriter.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
