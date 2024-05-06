@@ -85,6 +85,8 @@ public class UserInterface {
             scanner.nextLine();
             // Create a new ArrayList to store vehicles that fall within the specified price range
             ArrayList<Vehicle> inRange = new ArrayList<>();
+            // boolean for matching result
+            boolean match = false;
             // Iterate through all vehicles in the dealership to check if their prices fall within the specified range
             for (Vehicle vehicle : dealership.getAllVehicles()) {
                 // Check if the price of the current vehicle is greater than or equal to the minimum price
@@ -92,11 +94,17 @@ public class UserInterface {
                 if (vehicle.getPrice() >= min && vehicle.getPrice() <= max) {
                     // If the vehicle's price falls within the range, add it to the 'inRange' ArrayList
                     inRange.add(vehicle);
+                    match = true;
                 }
             }
             // Display vehicles in the price range
             displayVehicles(inRange);
-
+            // display message for match result
+            if(!match){
+                System.out.println("\n **** No matching cars found in price range ****");
+            } else {
+                System.out.println("++++++++++ End of matching price results ++++++++++");
+            }
         }catch (Exception e){
             // clear buffer if try fails
             scanner.nextLine();
@@ -107,11 +115,67 @@ public class UserInterface {
     }
 
     public void processGetByMakeModelRequest(){
+        System.out.println("~~~~ You have chosen to search by make/model ~~~~");
+        System.out.print("Please provide the make: ");
+        String makeInput = scanner.nextLine().toLowerCase().trim();
+        System.out.print("Please provide the model: ");
+        String modelInput = scanner.nextLine().toLowerCase().trim();
+        // boolean for matching result
+        boolean match = false;
+        ArrayList<Vehicle> matchingMakeModel = new ArrayList<>();
+        for (Vehicle car : dealership.getAllVehicles()){
+            String make = car.getMake().toLowerCase();
+            String model = car.getModel().toLowerCase();
 
+            if(model.contains(modelInput) && make.contains(makeInput)){
+                matchingMakeModel.add(car);
+                match = true;
+            }
+        }
+        // pass matching vehicles to display
+        displayVehicles(matchingMakeModel);
+        // display message for match result
+        if(!match){
+            System.out.println("\n**** No matching cars found with make and model provided ****");
+        } else {
+            System.out.println("++++++++++ End of matching make/model results ++++++++++");
+        }
     }
 
     public void processGetByYearRequest(){
-
+        try{
+            System.out.println("\n~~~~ You have chosen to search by year ~~~~");
+            int year = scanner.nextInt();
+            // clear buffer
+            scanner.nextLine();
+            // set match to false until match is founf
+            boolean match = false;
+            // create new arraylist to hold matching vehicles
+            ArrayList<Vehicle> yearMatch = new ArrayList<>();
+            // loop through all vehicles checking for possible match
+            for(Vehicle vehicle : dealership.getAllVehicles()){
+                if(vehicle.getYear() == year){
+                    // add match to array list
+                    yearMatch.add(vehicle);
+                    // set bool to true
+                    match = true;
+                }
+            }
+            // send matching vehicles to be displayed
+            displayVehicles(yearMatch);
+            // display match results
+            if(!match){
+                System.out.println("\n**** No matching cars found with year provided ****");
+            } else {
+                System.out.println("++++++++++ End of matching year results ++++++++++");
+            }
+        }catch (Exception e){
+            // clear buffer if string is given causing error
+            scanner.nextLine();
+            System.out.println("Please provide a valid number!");
+            // re-run program
+            processGetByYearRequest();
+        }
     }
 
     public void processGetByColorRequest(){
