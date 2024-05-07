@@ -62,6 +62,7 @@ public class DealershipFileManager {
              bufWriter.newLine();
          }
          // close the writer
+         bufWriter.flush();
          bufWriter.close();
      }catch (Exception e){
          System.out.println("Error saving new dealership info");

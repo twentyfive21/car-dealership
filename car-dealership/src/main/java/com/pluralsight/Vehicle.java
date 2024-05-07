@@ -89,18 +89,28 @@ public class Vehicle {
         this.price = price;
     }
 
-    @Override
     public String toString() {
-        return "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n   " +
-                "* Vehicle Information *" +
-                "\n   Vin= " + vin +
-                "\n   Year= " + year +
-                "\n   Make= " + make +
-                "\n   Model= " + model +
-                "\n   Vehicle Type= " + vehicleType +
-                "\n   Color= " + color +
-                "\n   Odometer= " + String.format("%,d", odometer) +
-                "\n   Price= " + String.format("%,.2f", price) +
-                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+        // Create a StringBuilder object to efficiently construct the formatted string
+        StringBuilder sb = new StringBuilder();
+        // Append the top border of the box
+        // Append each piece of vehicle information with proper formatting using String.format()
+        // Append the title of the vehicle information section
+        // %-21s: Left-aligns the string within a 21-character wide field
+        sb.append("╔═══════════════════════════╗\n");
+        sb.append("║        🚘 🚔 🚙 🚕       ║\n");
+        sb.append("║    Vehicle Information    ║\n");
+        sb.append("╠═══════════════════════════╣\n");
+        sb.append(String.format("║ Vin: %-21s║\n", vin));
+        sb.append(String.format("║ Year: %-20s║\n", year));
+        sb.append(String.format("║ Make: %-20s║\n", make));
+        sb.append(String.format("║ Model: %-19s║\n", model));
+        sb.append(String.format("║ Vehicle Type: %-12s║\n", vehicleType));
+        sb.append(String.format("║ Color: %-19s║\n", color));
+        sb.append(String.format("║ Odometer: %-16s║\n", String.format("%,d", odometer)));
+        sb.append(String.format("║ Price: $%-18s║\n", String.format("%,.2f", price)));
+        sb.append("╚═══════════════════════════╝\n");
+        // Convert the StringBuilder object to a String and return it
+        return sb.toString();
     }
+
 }

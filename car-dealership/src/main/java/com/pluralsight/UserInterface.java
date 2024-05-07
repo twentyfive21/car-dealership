@@ -271,13 +271,13 @@ public class UserInterface {
     public void processGetByVehicleTypeRequest() {
         System.out.println("**** You have chosen to search vehicle by type(car,suv,truck,van,ect) ****");
         System.out.print("Selection: ");
-        String carType = scanner.nextLine().trim();
+        String carType = scanner.nextLine().trim().toLowerCase();
 
         boolean match = false;
         ArrayList<Vehicle> matchingType = new ArrayList<>();
         // search for matching vehicle type
         for (Vehicle vehicle : dealership.getAllVehicles()) {
-            if (vehicle.getVehicleType().contains(carType)) {
+            if (vehicle.getVehicleType().toLowerCase().contains(carType)) {
                 matchingType.add(vehicle);
                 match = true;
             }
@@ -327,7 +327,7 @@ public class UserInterface {
             System.out.println(vehicle);
             System.out.println("\n**** Thank you for registering you vehicle today!  ****");
             // rewrite file by calling method that handles rewrite.
-//            saveNewDealership();
+            saveNewDealership();
         } catch (Exception e) {
             // catch error from int or double
             scanner.nextLine();
