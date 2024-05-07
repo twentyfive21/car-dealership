@@ -374,7 +374,7 @@ public class UserInterface {
             scanner.nextLine();
             System.out.println("\n**** Error please provide a number! ****");
             // take user back to home screen
-            display();
+            processRemoveVehicleRequest();
         }
     }
 }
