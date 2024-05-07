@@ -5,6 +5,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.regex.Pattern;
+/*
+This DealershipFileManager class facilitates reading dealership information
+and writing it to a file. The getDealership() method reads from "inventory.csv"
+and constructs a Dealership object along with its vehicles.
+The saveDealership() writes the dealership's details back to the file.
+Both methods handle file I/O (input/output) and ensure data integrity.
+ */
 
 public class DealershipFileManager {
 

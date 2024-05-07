@@ -4,24 +4,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
-
+    // DeclareDealership object to manage dealership data
     private Dealership dealership;
+    // Initialization of a Scanner object for user input
     Scanner scanner = new Scanner(System.in);
 
     public UserInterface() {
-
+    // empty constructor
     }
 
     private void init(){
+        // Instantiate a DealershipFileManager object to manage file operations
         DealershipFileManager manager = new DealershipFileManager();
+        // Retrieve dealership information from the file
         this.dealership = manager.getDealership();
     }
 
     private void saveNewDealership(){
         DealershipFileManager manager = new DealershipFileManager();
+        // Save the updated dealership information to the file
         manager.saveDealership(dealership);
     }
 
+    // Display details of vehicles in the provided ArrayList
     private void displayVehicles(ArrayList<Vehicle> vehicles){
         for(Vehicle item : vehicles){
             System.out.println(item);
@@ -29,13 +34,15 @@ public class UserInterface {
     }
 
     public void display(){
+        // Initialize the user interface
         init();
         boolean running = true;
-
         while (running) {
+        // Display available choices for user interaction
         displayChoices();
         String choice = scanner.nextLine().trim();
             switch (choice){
+                // cases for user's choice
                 case "1" : processGetByPriceRequest();
                     break;
                 case "2" : processGetByMakeModelRequest();
@@ -65,6 +72,7 @@ public class UserInterface {
     }
 
     public void displayChoices(){
+        // Display the available choices for user interaction
         System.out.println("\n---- Welcome to the dealership! Please select one of the following. ----\n");
         System.out.println("(1) Find vehicles within a price range");
         System.out.println("(2) Find vehicles by make / model");
@@ -75,13 +83,13 @@ public class UserInterface {
         System.out.println("(7) List all vehicles");
         System.out.println("(8) Add a vehicle");
         System.out.println("(9) Remove a vehicle");
-        // did 0 instead of 99 for user to type less
+        // did 0 instead of 99 for user to type less. Choice 0 is used for quitting
         System.out.println("(0) Quit");
         System.out.print("Selection: ");
     }
 
     public void processGetByPriceRequest(){
-        try{
+        try{ // Process user's request to find vehicles within a price range
             System.out.println("\n~~~~ You have chosen to search by Price ~~~~");
             System.out.print("Max : ");
             double max = scanner.nextDouble();
@@ -120,6 +128,7 @@ public class UserInterface {
     }
 
     public void processGetByMakeModelRequest(){
+        // Process user's request to find vehicles by make/model
         System.out.println("~~~~ You have chosen to search by make/model ~~~~");
         System.out.print("Please provide the make: ");
         String makeInput = scanner.nextLine().toLowerCase().trim();
@@ -127,11 +136,12 @@ public class UserInterface {
         String modelInput = scanner.nextLine().toLowerCase().trim();
         // boolean for matching result
         boolean match = false;
+        // Create a new ArrayList to store vehicles that fall within the specified price range
         ArrayList<Vehicle> matchingMakeModel = new ArrayList<>();
         for (Vehicle car : dealership.getAllVehicles()){
             String make = car.getMake().toLowerCase();
             String model = car.getModel().toLowerCase();
-
+            // check for matching make and model
             if(model.contains(modelInput) && make.contains(makeInput)){
                 matchingMakeModel.add(car);
                 match = true;
@@ -187,15 +197,17 @@ public class UserInterface {
         System.out.println("**** You have chosen to search by color! ****");
         System.out.print("Please provide the color: ");
         String color = scanner.nextLine();
-
         boolean match = false;
+        // create array list for matching color vehicles
         ArrayList<Vehicle> matchingColor = new ArrayList<>();
         for(Vehicle vehicle : dealership.getAllVehicles()){
             if(vehicle.getColor().toLowerCase().equalsIgnoreCase(color)){
+                // add vehicle if color matches
                 matchingColor.add(vehicle);
                 match = true;
             }
         }
+        // call display method
         displayVehicles(matchingColor);
         if(!match){
             System.out.println("\n**** No matching cars found with color provided ****");
@@ -251,12 +263,14 @@ public class UserInterface {
 
         boolean match = false;
         ArrayList<Vehicle> matchingType = new ArrayList<>();
+        // search for matching vehicle type
         for (Vehicle vehicle : dealership.getAllVehicles()){
             if(vehicle.getVehicleType().equalsIgnoreCase(carType)){
                 matchingType.add(vehicle);
                 match = true;
             }
         }
+        // call display method
         displayVehicles(matchingType);
         // display message for match result
         if(!match){
@@ -273,7 +287,7 @@ public class UserInterface {
     }
 
     public void processAddVehicleRequest(){
-        try{
+        try{// get input to add vehicle to csv and array list
             System.out.println("**** You have chosen to add a vehicle ****");
             System.out.print("Please provide Vin: ");
             int vin = scanner.nextInt();
@@ -293,7 +307,7 @@ public class UserInterface {
             String vehicleType = scanner.nextLine().trim();
             System.out.print("Please provide Color: ");
             String color = scanner.nextLine().trim();
-
+            // use constructor to instantiate a new Vehicle object
             Vehicle vehicle = new Vehicle(vin,year,make,model,vehicleType,color,odometer,price);
             // add new vehicle to arraylist
             dealership.addVehicle(vehicle);
@@ -317,6 +331,7 @@ public class UserInterface {
             System.out.print("Please provide vin number for removal: ");
             int vin = scanner.nextInt();
             scanner.nextLine();
+            // vehicle saved here to display item found for deletion
             Vehicle toDelete = null;
             for(Vehicle vehicle : dealership.getAllVehicles()){
                 if(vehicle.getVin() == vin){
@@ -337,5 +352,4 @@ public class UserInterface {
             processRemoveVehicleRequest();
         }
     }
-
 }

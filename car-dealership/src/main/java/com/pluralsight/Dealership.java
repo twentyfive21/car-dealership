@@ -1,7 +1,11 @@
 package com.pluralsight;
 
 import java.util.ArrayList;
-
+/*
+ This Dealership class models a car dealership with attributes like name,
+ address, phone, and an inventory of vehicles. It provides methods for
+ retrieving vehicles based on different criteria and managing the inventory.
+ */
 public class Dealership {
 
     private String name;
