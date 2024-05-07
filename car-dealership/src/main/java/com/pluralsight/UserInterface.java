@@ -17,6 +17,11 @@ public class UserInterface {
         this.dealership = manager.getDealership();
     }
 
+    private void saveNewDealership(){
+        DealershipFileManager manager = new DealershipFileManager();
+        manager.saveDealership(dealership);
+    }
+
     private void displayVehicles(ArrayList<Vehicle> vehicles){
         for(Vehicle item : vehicles){
             System.out.println(item);
@@ -268,11 +273,49 @@ public class UserInterface {
     }
 
     public void processAddVehicleRequest(){
+        try{
+            System.out.println("**** You have chosen to add a vehicle ****");
+            System.out.print("Please provide Vin: ");
+            int vin = scanner.nextInt();
+            System.out.print("Please provide Year: ");
+            int year = scanner.nextInt();
+            System.out.print("Please provide Odometer: ");
+            int odometer = scanner.nextInt();
+            System.out.print("Please provide Price: ");
+            double price = scanner.nextInt();
+            // clear leftover in buffer
+            scanner.nextLine();
+            System.out.print("Please provide Make: ");
+            String make = scanner.nextLine().trim();
+            System.out.print("Please provide Model: ");
+            String model = scanner.nextLine().trim();
+            System.out.print("Please provide Vehicle Type(car,suv,truck): ");
+            String vehicleType = scanner.nextLine().trim();
+            System.out.print("Please provide Color: ");
+            String color = scanner.nextLine().trim();
+
+            Vehicle vehicle = new Vehicle(vin,year,make,model,vehicleType,color,odometer,price);
+            // add new vehicle to arraylist
+            dealership.addVehicle(vehicle);
+            System.out.println("\n**** Vehicle had been added ****");
+            System.out.println(vehicle);
+            System.out.println("\n**** Thank you for registering you vehicle today!  ****");
+            // rewrite file by calling method that handles rewrite.
+            saveNewDealership();
+        }catch (Exception e ){
+            // catch error from int or double
+            scanner.nextLine();
+            System.out.println("**** Error please provide a valid number ****");
+            // re-run method
+            processAddVehicleRequest();
+        }
+
+
 
     }
 
     public void processRemoveVehicleRequest(){
-
+        System.out.println("**** You have chosen to remove a vehicle ****");
     }
 
 }

@@ -97,7 +97,7 @@ public class Vehicle {
                 "\n   Year= " + year +
                 "\n   Make= " + make +
                 "\n   Model= " + model +
-                "\n   VehicleType= " + vehicleType +
+                "\n   Vehicle Type= " + vehicleType +
                 "\n   Color= " + color +
                 "\n   Odometer= " + String.format("%,d", odometer) +
                 "\n   Price= " + String.format("%,.2f", price) +
