@@ -160,6 +160,7 @@ public class UserInterface {
     public void processGetByYearRequest(){
         try{
             System.out.println("\n~~~~ You have chosen to search by year ~~~~");
+            System.out.print("Year: ");
             int year = scanner.nextInt();
             // clear buffer
             scanner.nextLine();
@@ -196,12 +197,12 @@ public class UserInterface {
     public void processGetByColorRequest(){
         System.out.println("**** You have chosen to search by color! ****");
         System.out.print("Please provide the color: ");
-        String color = scanner.nextLine();
+        String color = scanner.nextLine().trim().toLowerCase();
         boolean match = false;
         // create array list for matching color vehicles
         ArrayList<Vehicle> matchingColor = new ArrayList<>();
         for(Vehicle vehicle : dealership.getAllVehicles()){
-            if(vehicle.getColor().toLowerCase().equalsIgnoreCase(color)){
+            if(vehicle.getColor().toLowerCase().contains(color)){
                 // add vehicle if color matches
                 matchingColor.add(vehicle);
                 match = true;
@@ -219,7 +220,7 @@ public class UserInterface {
     public void processGetByMileageRequest(){
         try{
             System.out.println("You have chosen to search by mileage");
-            System.out.print("Please provide the mileage: ");
+            System.out.println("Please provide the mileage ");
             System.out.print("Max : ");
             double max = scanner.nextDouble();
             System.out.print("Min : ");
@@ -265,7 +266,7 @@ public class UserInterface {
         ArrayList<Vehicle> matchingType = new ArrayList<>();
         // search for matching vehicle type
         for (Vehicle vehicle : dealership.getAllVehicles()){
-            if(vehicle.getVehicleType().equalsIgnoreCase(carType)){
+            if(vehicle.getVehicleType().contains(carType)){
                 matchingType.add(vehicle);
                 match = true;
             }
@@ -332,17 +333,20 @@ public class UserInterface {
             int vin = scanner.nextInt();
             scanner.nextLine();
             // vehicle saved here to display item found for deletion
-            Vehicle toDelete = null;
+            boolean found = false;
             for(Vehicle vehicle : dealership.getAllVehicles()){
                 if(vehicle.getVin() == vin){
                     // remove vehicle with matching vin
                     dealership.removeVehicle(vehicle);
-                    toDelete = vehicle;
+                    found = true;
                 }
             }
-            System.out.println("\n**** Vehicle below has been deleted!");
-            System.out.println(toDelete);
-            System.out.println("\n**** Thank you for removing your unused vehicle! ****");
+            if(!found){
+                System.out.println("\n**** Car not found with matching vin number! ****");
+            } else {
+                System.out.println("\n**** Vehicle below has been deleted! ****");
+                System.out.println("\n**** Thank you for removing your unused vehicle! ****");
+            }
             // rewrite file by calling method that handles rewrite.
             saveNewDealership();
         }catch (Exception e){

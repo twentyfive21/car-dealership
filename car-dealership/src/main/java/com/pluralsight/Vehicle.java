@@ -1,7 +1,7 @@
 package com.pluralsight;
 
 public class Vehicle {
-
+    // A Vehicle class with various attributes such as VIN, year, make, model, etc.
     private int vin;
     private int year;
     private String make;
