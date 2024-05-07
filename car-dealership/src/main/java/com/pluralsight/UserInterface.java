@@ -309,13 +309,33 @@ public class UserInterface {
             // re-run method
             processAddVehicleRequest();
         }
-
-
-
     }
 
     public void processRemoveVehicleRequest(){
-        System.out.println("**** You have chosen to remove a vehicle ****");
+        try{
+            System.out.println("**** You have chosen to remove a vehicle ****");
+            System.out.print("Please provide vin number for removal: ");
+            int vin = scanner.nextInt();
+            scanner.nextLine();
+            Vehicle toDelete = null;
+            for(Vehicle vehicle : dealership.getAllVehicles()){
+                if(vehicle.getVin() == vin){
+                    // remove vehicle with matching vin
+                    dealership.removeVehicle(vehicle);
+                    toDelete = vehicle;
+                }
+            }
+            System.out.println("\n**** Vehicle below has been deleted!");
+            System.out.println(toDelete);
+            System.out.println("\n**** Thank you for removing your unused vehicle! ****");
+            // rewrite file by calling method that handles rewrite.
+            saveNewDealership();
+        }catch (Exception e){
+            // clear buffer for error if given string
+            scanner.nextLine();
+            System.out.println("\n**** Error please provide a number! ****");
+            processRemoveVehicleRequest();
+        }
     }
 
 }
